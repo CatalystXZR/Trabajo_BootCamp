@@ -1,41 +1,45 @@
-1. CARGO_MANAGER.py
-- add_fletes(data)
-- collect_tolls(data)
-- select_client(name_or_rut)
-- autocomplete_client(client_id)
+# Modular Freight Proforma System
+A technical solution designed to streamline the creation, validation, and traceability of freight proformas in real-world logistics environments. Built for operations involving multiple transport providers, where documentation and responsibility must be clear, auditable, and scalable.
 
-2. PROFORMA_CALCULATOR.cc
-- calculate_flete_cost(flete)
-- calculate_subtotals(ws)
-- calculate_total_general(ws)
-- format_tariff_output(flete)
+## Orchestrated Modular Architecture
+The system is composed of independent modules, each with a specific responsibility. This allows for isolated validation, progressive evolution, and operational flexibility.
 
-3. DATABASE_MANAGER.py
-- load_excel(filename)
-- get_existing_clients(ws)
-- find_client(ws, name_or_rut)
-- get_client_history(ws, client_id)
+### CARGO_MANAGER.py
+- `add_fletes(data)`: Adds new freight entries to the system.
+- `collect_tolls(data)`: Calculates tolls associated with each trip.
+- `select_client(name_or_rut)`: Selects a client by name or national ID.
+- `autocomplete_client(client_id)`: Autocompletes client data based on ID.
 
-4. DATABASE_WRITER.py
-- insert_flete(ws, flete)
-- update_totals(ws)
-- update_tariffs(ws)
-- preserve_format(ws)
+### PROFORMA_CALCULATOR.cc
+- `calculate_flete_cost(flete)`: Computes base freight cost.
+- `calculate_subtotals(ws)`: Calculates subtotals by category.
+- `calculate_total_general(ws)`: Computes the overall total of the proforma.
+- `format_tariff_output(flete)`: Formats tariff output for presentation.
 
-- - No inputs ni prints dentro de los modulos, TODO sera controlado por el orquestador (main function), modularidad estricta.
-- - El excel de SQM sera utilizado como base de datos, y se operara a traves de este software.
-- - El objetivo principal de este software, es agilizar el excel que ya tienen. En vez de ingresar manualmente los datos en la hoja excel, seran ingresados por este software.
-- - El excel sera empleado con la libreria openpyxl **ESTUDIARLA
-- - Los modulos seran creados de manera estructurada. Totalmente independientes entre si. Sera el orquestador quien le de valores a las variables y los interconecte entre si.
-- - Si yo modifico el modulo A, no tiene porque verse afectado el modulo b. INDEPENDIENTES. modularidad estricta.
+### DATABASE_MANAGER.py
+- `load_excel(filename)`: Loads Excel file as data source.
+- `get_existing_clients(ws)`: Retrieves registered clients.
+- `find_client(ws, name_or_rut)`: Searches for a client by name or ID.
+- `get_client_history(ws, client_id)`: Retrieves freight history for a given client.
 
-FASES: 
-1. Crear el CLI
-- Seguir una estructura modular estricta operada por orquestador
-- Integrar el excel de manera correcta, siguiendo el formato de la empresa
-- Manejo de clientes (Crear uno nuevo, o si ya existe, que se rellenen los datos automaticamente. Que sea posible poder retomar una proforma de un cliente facilmente.)
-2. Integrar C++
-- Sera el modulo ""PROFORMA_CALCULATOR"" el que estara desarrollado en C++, dado que sera el motor de los calculos. Sera un modulo totalmente matematico.
-- asignar una ID (a partir del formato de ellos) de manera automatica. Y que una vez que el cliente ya este creado, que no se le vaya a asignar otra ID. Es decir, que lo reconozca. Igualmente, validar el rut, para corroborar que es un rut real y no falso, ya que es de suma importancia en el proceso de facturacion.
-3. Analizar escalabilidad
-- Tal vez, en vez de hacer un orquestador a partir de CLI, poder hacerlo a traves de un mini frontend, para normalizarlo como aplicacion de escritorio, quizas con C#
+### DATABASE_WRITER.py
+- `insert_flete(ws, flete)`: Inserts a new freight entry into the database.
+- `update_totals(ws)`: Updates overall totals.
+- `update_tariffs(ws)`: Updates tariffs based on defined parameters.
+
+### Scalability
+Each module is designed to adapt to different operational contexts, cargo types, and business models. The system can evolve without requiring a full rewrite, supporting long-term growth and customization.
+
+## Operational Integration
+This system was designed based on direct observation of real logistics workflows. It is not a theoretical model, but a functional architecture intended for phased implementation and field validation.
+
+## Authors
+***Matías Toledo*** — Product Lead  
+***Benjamin Contreras*** — Lead Developer
+
+
+## License
+This project is currently unlicensed.  
+All rights reserved by the authors.  
+Use, distribution, or modification is not permitted without explicit permission.
+
